@@ -1,43 +1,66 @@
-
+const dressbook = [];
  const submiting = document.getElementById('submiting');
 
-const businesscard = document.getElementById('submiting');
-businesscard.addEventListener('click', function() {
+const adressbook =  document.getElementById('submiting');
+adressbook.addEventListener('click', function() {
 
   let name = document.getElementById('fullname').value;
   let mail = document.getElementById('email').value;
-  let addres = document.getElementById('address').value;
   let numberis = document.getElementById('phonenumber').value;
-  let cription = document.getElementById('description').value;
 
    window.localStorage.setItem('fullname', name);
    window.localStorage.setItem('email', mail);
-   window.localStorage.setItem('address', addres);
    window.localStorage.setItem('phonenumber', numberis);
-   window.localStorage.setItem('description', cription);
-print();
+
+print ();
 });
-
-
 
 
 const print = () => {
   let name = localStorage.getItem('fullname');
   let mail = localStorage.getItem('email');
-  let addres = localStorage.getItem('address');
   let numberis = localStorage.getItem('phonenumber');
-  let cription = localStorage.getItem('description');
+
 
   document.getElementById('fullname').value = name;
   document.getElementById('email').value = mail;
-  document.getElementById('address').value = addres;
   document.getElementById('phonenumber').value = numberis;
-  document.getElementById('description').value = cription;
+
 
   let content = document.createElement("p");
-  content.textContent = `${name} ${mail} ${addres} ${numberis} ${cription}`;
-  document.getElementById('cardinfo').innerHTML = null;
-  document.getElementById('cardinfo').appendChild(content);
+  content.textContent = `${name} ${mail} ${numberis} `;
+  document.getElementById('hobby').appendChild(content);
 
 }
-print();
+print()
+
+
+
+
+var div = document.getElementById('hobby');
+
+function addHobby() {
+  var  button = document.createElement('button');
+  buttonedit = document.createElement('button');
+
+
+  button.innerHTML = 'X';
+   button.innerHTML = 'edit';
+  // attach onlick event handler to remove button
+  button.onclick = removeHobby;
+
+
+  div.appendChild(button);
+}
+
+function removeHobby() {
+  // remove this button and its input
+  div.removeChild(this.previousElementSibling);
+  div.removeChild(this);
+}
+
+// attach onclick event handler to add button
+document.getElementById('submiting').addEventListener('click', addHobby);
+// attach onclick event handler to 1st remove button
+document.getElementById('remove').addEventListener('click', removeHobby);
+document.getElementById('editinimas').addEventListener('click', removeHobby);
