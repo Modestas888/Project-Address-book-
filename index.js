@@ -1,66 +1,62 @@
-const dressbook = [];
- const submiting = document.getElementById('submiting');
+let adressbook = [];
 
-const adressbook =  document.getElementById('submiting');
-adressbook.addEventListener('click', function() {
+document.getElementById('submiting').addEventListener('click', function() {
+  const name = document.getElementById('fullname').value;
+  const mail = document.getElementById('email').value;
+  const numberis = document.getElementById('phonenumber').value;
+  const newContact = { name: name, mail: mail, numberis: numberis };
 
-  let name = document.getElementById('fullname').value;
-  let mail = document.getElementById('email').value;
-  let numberis = document.getElementById('phonenumber').value;
+  adressbook.push(newContact)
+  window.localStorage.setItem(`adressbook` , JSON.stringify(adressbook));
 
-   window.localStorage.setItem('fullname', name);
-   window.localStorage.setItem('email', mail);
-   window.localStorage.setItem('phonenumber', numberis);
-
-print ();
+  print();
 });
 
 
 const print = () => {
-  let name = localStorage.getItem('fullname');
-  let mail = localStorage.getItem('email');
-  let numberis = localStorage.getItem('phonenumber');
+  document.getElementById('mygtukas').innerHTML = null;
 
+  adressbook.forEach((contact , index) => {
+    const container = document.createElement(`div`);
+    const name = document.createElement(`span`);
+    const mail = document.createElement(`span`);
+    const number = document.createElement(`span`);
+    const deletButton = document.createElement(`button`);
+    const editButton = document.createElement(`button`);
 
-  document.getElementById('fullname').value = name;
-  document.getElementById('email').value = mail;
-  document.getElementById('phonenumber').value = numberis;
+    name.textContent = contact.name;
+    mail.textContent = contact.mail;
+    number.textContent = contact.numberis;
+    deletButton.textContent = `delete`;
+    editButton.textContent = `edit`;
 
+    container.appendChild(name);
+    container.appendChild(mail);
+    container.appendChild(number);
+    container.appendChild(deletButton);
+    container.appendChild(editButton);
 
-  let content = document.createElement("p");
-  content.textContent = `${name} ${mail} ${numberis} `;
-  document.getElementById('hobby').appendChild(content);
+    deletButton.addEventListener(`click` , () => {
+      adressbook.splice(index, 1);
+      window.localStorage.setItem(`adressbook` , JSON.stringify(adressbook));
 
-}
-print()
+      print();
+    });
+    editButton.addEventListener(`click` , console.log() ,  () => {
+      adressbook.splice(index);
+      window.localStorage.setItem(`adressbook` , JSON.stringify(adressbook));
 
+      print();
+    });
 
-
-
-var div = document.getElementById('hobby');
-
-function addHobby() {
-  var  button = document.createElement('button');
-  buttonedit = document.createElement('button');
-
-
-  button.innerHTML = 'X';
-   button.innerHTML = 'edit';
-  // attach onlick event handler to remove button
-  button.onclick = removeHobby;
-
-
-  div.appendChild(button);
-}
-
-function removeHobby() {
-  // remove this button and its input
-  div.removeChild(this.previousElementSibling);
-  div.removeChild(this);
+    document.getElementById('mygtukas').appendChild(container);
+  });
 }
 
-// attach onclick event handler to add button
-document.getElementById('submiting').addEventListener('click', addHobby);
-// attach onclick event handler to 1st remove button
-document.getElementById('remove').addEventListener('click', removeHobby);
-document.getElementById('editinimas').addEventListener('click', removeHobby);
+const fromcache = window.localStorage.getItem(`adressbook`);
+
+  if (fromcache) {
+    adressbook = JSON.parse(fromcache);
+
+    print();
+  }

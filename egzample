@@ -1,0 +1,28 @@
+
+var div = document.getElementById('hobby');
+
+function addHobby() {
+  var  button = document.createElement('button');
+  // buttonedit = document.createElement('button');
+
+
+  // button.innerHTML = 'X';
+   button.innerHTML = 'Delete';
+  // attach onlick event handler to remove button
+  button.onclick = removeHobby;
+
+
+  div.appendChild(button);
+}
+
+function removeHobby() {
+  // remove this button and its input
+  div.removeChild(this.previousElementSibling);
+  div.removeChild(this);
+}
+
+// attach onclick event handler to add button
+document.getElementById('submiting').addEventListener('click', addHobby);
+// attach onclick event handler to 1st remove button
+// document.getElementById('remove').addEventListener('click', removeHobby);
+document.getElementById('deletinimas').addEventListener('click', removeHobby);
