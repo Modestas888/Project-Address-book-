@@ -1,4 +1,5 @@
 let adressbook = [];
+let editindex = -1;
 
 document.getElementById('submiting').addEventListener('click', function() {
   const name = document.getElementById('fullname').value;
@@ -6,7 +7,15 @@ document.getElementById('submiting').addEventListener('click', function() {
   const numberis = document.getElementById('phonenumber').value;
   const newContact = { name: name, mail: mail, numberis: numberis };
 
-  adressbook.push(newContact)
+  if (editindex > -1) {
+    adressbook[editindex] = newContact;
+    editindex = -1;
+  }
+  else {
+
+    adressbook.push(newContact)
+  }
+
   window.localStorage.setItem(`adressbook` , JSON.stringify(adressbook));
 
   print();
@@ -42,9 +51,11 @@ const print = () => {
 
       print();
     });
-    editButton.addEventListener(`click` , console.log() ,  () => {
-      adressbook.splice(index);
-      window.localStorage.setItem(`adressbook` , JSON.stringify(adressbook));
+    editButton.addEventListener(`click` ,  () => {
+      editindex = index;
+    document.getElementById('fullname').value = contact.name ;
+    document.getElementById('email').value = contact.mail ;
+    document.getElementById('phonenumber').value = contact.numberis ;
 
       print();
     });
