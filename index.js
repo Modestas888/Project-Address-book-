@@ -21,7 +21,6 @@ document.getElementById('submiting').addEventListener('click', function() {
   print();
 });
 
-
 const print = () => {
   document.getElementById('mygtukas').innerHTML = null;
 
